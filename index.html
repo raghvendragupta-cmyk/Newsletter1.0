@@ -15,11 +15,10 @@
       align-items: center;
       min-height: 100vh;
       font-family: Arial, sans-serif;
-      overflow: hidden;
     }
 
     .header-bar {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       color: #ffffff;
       text-align: center;
     }
@@ -36,12 +35,19 @@
       align-items: center;
     }
 
-    #flipbook-container {
+    #flipbook {
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
 
+    .page {
+      background-color: white;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
     .controls {
-      margin-top: 20px;
+      margin-top: 25px;
       display: flex;
       gap: 15px;
     }
@@ -67,7 +73,12 @@
   </div>
 
   <div class="flipbook-wrapper">
-    <div id="flipbook-container"></div>
+    <div id="flipbook">
+      <div class="page" style="background-image: url('Page%201.png');"></div>
+      <div class="page" style="background-image: url('page%202.png');"></div>
+      <div class="page" style="background-image: url('page%203.png');"></div>
+      <div class="page" style="background-image: url('Page%204.png');"></div>
+    </div>
   </div>
 
   <div class="controls">
@@ -75,11 +86,9 @@
     <button class="btn" id="nextBtn">Next Page →</button>
   </div>
 
-  <!-- StPageFlip Engine -->
   <script src="https://cdn.jsdelivr.net/npm/page-flip/build/js/page-flip.browser.js"></script>
 
   <script>
-    // Audio synthesizer for realistic page turn sound
     function playPageTurnSound() {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -107,40 +116,28 @@
         gain.connect(audioCtx.destination);
 
         noise.start();
-      } catch (e) {
-        // Audio fallback
-      }
+      } catch (e) {}
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      const container = document.getElementById('flipbook-container');
-
-      // Initialize StPageFlip
-      const pageFlip = new St.PageFlip(container, {
-        width: 450,
-        height: 600,
+      const pageFlip = new St.PageFlip(document.getElementById('flipbook'), {
+        width: 400,
+        height: 550,
         size: "fixed",
-        showCover: true,
-        maxShadowOpacity: 0.6
+        minWidth: 300,
+        maxWidth: 1000,
+        minHeight: 400,
+        maxHeight: 1200,
+        maxShadowOpacity: 0.5,
+        showCover: true
       });
 
-      // EXACT FILENAMES MATCHING YOUR UPLOADED SCREENSHOTS
-      const canvaScreenshots = [
-        'Page 1.png',
-        'page 2.png',
-        'page 3.png',
-        'Page 4.png'
-      ];
+      pageFlip.loadFromHTML(document.querySelectorAll('.page'));
 
-      // Load images directly
-      pageFlip.loadFromImages(canvaScreenshots);
-
-      // Trigger audio on page turn
       pageFlip.on('flip', () => {
         playPageTurnSound();
       });
 
-      // Navigation buttons
       document.getElementById('prevBtn').addEventListener('click', () => pageFlip.flipPrev());
       document.getElementById('nextBtn').addEventListener('click', () => pageFlip.flipNext());
     });
