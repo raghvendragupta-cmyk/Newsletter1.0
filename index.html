@@ -3,156 +3,170 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ownly Interactive Newspaper</title>
+  <title>Ownly Newsletter</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      background-color: #121212;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { width: 100%; height: 100%; overflow: hidden; background-color: #121212; font-family: Arial, sans-serif; }
+
+    /* Interactive Scooter Overlay */
+    #intro-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #121212;
+      z-index: 9999;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
+      transition: opacity 0.8s ease, visibility 0.8s;
     }
 
-    .header-bar {
-      margin-bottom: 20px;
+    .scooter-container {
+      position: absolute;
+      bottom: 25%;
+      left: -350px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: driveToCenter 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    .banner-prompt {
+      background: #FF2E93;
       color: #ffffff;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 0 25px rgba(255, 46, 147, 0.8);
+      margin-bottom: 15px;
+      animation: floatBanner 1.5s ease-in-out infinite alternate;
+      border: 2px solid #ffffff;
       text-align: center;
     }
 
-    .header-bar h1 {
-      font-size: 22px;
-      color: #FF2E93;
+    /* CSS Vector Character */
+    .scooter-graphic {
+      position: relative;
+      width: 180px;
+      height: 140px;
     }
 
-    .flipbook-wrapper {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #flipbook {
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      display: none;
-    }
-
-    .page {
-      background-color: #ffffff;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .page img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .controls {
-      margin-top: 25px;
-      display: flex;
-      gap: 15px;
-    }
-
-    .btn {
+    .rider-helmet {
+      position: absolute;
+      top: 0; left: 65px;
+      width: 45px; height: 40px;
       background: #FF2E93;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s;
+      border-radius: 25px 25px 10px 10px;
+      border: 3px solid #fff;
     }
 
-    .btn:hover { background: #D9006C; }
+    .rider-body {
+      position: absolute;
+      top: 38px; left: 60px;
+      width: 55px; height: 50px;
+      background: #FF2E93;
+      border-radius: 15px 15px 0 0;
+      color: #fff;
+      font-weight: bold;
+      font-size: 11px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #fff;
+    }
+
+    .scooter-body {
+      position: absolute;
+      bottom: 25px; left: 20px;
+      width: 140px; height: 35px;
+      background: #FFD700;
+      border-radius: 20px 40px 10px 10px;
+    }
+
+    .wheel {
+      position: absolute;
+      bottom: 10px;
+      width: 35px; height: 35px;
+      background: #333;
+      border: 4px solid #aaa;
+      border-radius: 50%;
+    }
+    .wheel.left { left: 25px; }
+    .wheel.right { right: 25px; }
+
+    /* Main Iframe */
+    #flipbook-frame {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
+
+    /* Pink Ownly Logo Patch (Covers Heyzine watermark) */
+    .brand-overlay-patch {
+      position: fixed;
+      bottom: 12px;
+      left: 15px;
+      z-index: 999;
+      background-color: #FF2E93;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      border: 2px solid #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none; /* Allows interactions underneath if needed */
+    }
+
+    @keyframes driveToCenter {
+      0% { left: -350px; }
+      100% { left: calc(50% - 90px); }
+    }
+
+    @keyframes floatBanner {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(-10px) scale(1.05); }
+    }
   </style>
 </head>
 <body>
 
-  <div class="header-bar">
-    <h1>📰 Ownly Interactive Newspaper</h1>
-  </div>
-
-  <div class="flipbook-wrapper">
-    <div id="flipbook">
-      <div class="page"><img src="Page 1.png" alt="Page 1"></div>
-      <div class="page"><img src="page 2.png" alt="Page 2"></div>
-      <div class="page"><img src="page 3.png" alt="Page 3"></div>
-      <div class="page"><img src="Page 4.png" alt="Page 4"></div>
+  <!-- Scooter Intro -->
+  <div id="intro-overlay">
+    <div class="scooter-container" id="scooterButton">
+      <div class="banner-prompt">📰 Click to Read Ownly Newsletter!</div>
+      
+      <div class="scooter-graphic">
+        <div class="rider-helmet"></div>
+        <div class="rider-body">OWNLY</div>
+        <div class="scooter-body"></div>
+        <div class="wheel left"></div>
+        <div class="wheel right"></div>
+      </div>
     </div>
   </div>
 
-  <div class="controls">
-    <button class="btn" id="prevBtn">← Previous Page</button>
-    <button class="btn" id="nextBtn">Next Page →</button>
+  <!-- Embedded Flipbook -->
+  <iframe id="flipbook-frame" src="https://heyzine.com/flip-book/0e74665815.html#page/4" allowfullscreen></iframe>
+
+  <!-- Pink Ownly Branding Cover -->
+  <div class="brand-overlay-patch">
+    <span>📰</span> OWNLY NEWSLETTER
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/page-flip/build/js/page-flip.browser.js"></script>
-
   <script>
-    function playPageTurnSound() {
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const bufferSize = audioCtx.sampleRate * 0.15;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = Math.random() * 2 - 1;
-        }
+    const scooterBtn = document.getElementById('scooterButton');
+    const overlay = document.getElementById('intro-overlay');
 
-        const noise = audioCtx.createBufferSource();
-        noise.buffer = buffer;
-
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.value = 800;
-
-        const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        noise.start();
-      } catch (e) {}
-    }
-
-    window.addEventListener('load', () => {
-      const flipbookEl = document.getElementById('flipbook');
-      
-      const pageFlip = new St.PageFlip(flipbookEl, {
-        width: 400,
-        height: 550,
-        size: "fixed",
-        minWidth: 300,
-        maxWidth: 1000,
-        minHeight: 400,
-        maxHeight: 1200,
-        maxShadowOpacity: 0.5,
-        showCover: true
-      });
-
-      pageFlip.loadFromHTML(document.querySelectorAll('.page'));
-      flipbookEl.style.display = 'block';
-
-      pageFlip.on('flip', () => {
-        playPageTurnSound();
-      });
-
-      document.getElementById('prevBtn').addEventListener('click', () => pageFlip.flipPrev());
-      document.getElementById('nextBtn').addEventListener('click', () => pageFlip.flipNext());
+    scooterBtn.addEventListener('click', () => {
+      overlay.style.opacity = '0';
+      overlay.style.visibility = 'hidden';
     });
   </script>
 
