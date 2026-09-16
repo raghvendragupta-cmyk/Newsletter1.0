@@ -103,25 +103,28 @@
       border: none;
     }
 
-    /* Pink Ownly Logo Patch (Covers Heyzine watermark) */
+    /* Pink Ownly Logo Patch - Adjusted position to fully cover Heyzine logo */
     .brand-overlay-patch {
       position: fixed;
-      bottom: 12px;
-      left: 15px;
+      bottom: 60px;
+      left: 20px;
       z-index: 999;
       background-color: #FF2E93;
       color: #ffffff;
-      padding: 10px 20px;
-      border-radius: 12px;
+      padding: 18px 28px;
+      border-radius: 16px;
       font-weight: 800;
-      font-size: 16px;
+      font-size: 18px;
       letter-spacing: 0.5px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      border: 2px solid #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      border: 3px solid #ffffff;
       display: flex;
       align-items: center;
-      gap: 8px;
-      pointer-events: none; /* Allows interactions underneath if needed */
+      justify-content: center;
+      gap: 10px;
+      min-width: 210px;
+      height: 75px;
+      pointer-events: none;
     }
 
     @keyframes driveToCenter {
@@ -155,9 +158,9 @@
   <!-- Embedded Flipbook -->
   <iframe id="flipbook-frame" src="https://heyzine.com/flip-book/0e74665815.html#page/4" allowfullscreen></iframe>
 
-  <!-- Pink Ownly Branding Cover -->
+  <!-- Pink Ownly Branding Cover (Positioned Directly Over Heyzine Logo) -->
   <div class="brand-overlay-patch">
-    <span>📰</span> OWNLY NEWSLETTER
+    <span>📰</span> OWNLY
   </div>
 
   <script>
