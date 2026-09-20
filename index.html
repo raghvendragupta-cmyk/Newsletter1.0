@@ -6,60 +6,92 @@
   <title>Ownly Newsletter</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html { width: 100%; height: 100%; overflow: hidden; background-color: #121212; font-family: Arial, sans-serif; }
+    body, html { width: 100%; height: 100%; overflow: hidden; background-color: #0c0c0c; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
 
-    /* Interactive Scooter Overlay */
+    /* Interactive Overlay */
     #intro-overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(18, 18, 18, 0.95);
+      background: #0c0c0c;
       z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
       transition: opacity 0.8s ease, visibility 0.8s;
+      cursor: pointer;
     }
 
-    .scooter-container {
-      position: absolute;
-      bottom: 10%;
-      left: -450px;
-      cursor: pointer;
+    .scooter-stage {
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: driveToCenter 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      justify-content: center;
+      gap: 50px;
+      animation: realismDriveIn 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .realistic-scooter {
+      width: 320px;
+      height: 250px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 400'%3Q%3Cdefs%3E%3ClinearGradient id='bodyG1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3Q%3Cstop offset='0%25' style='stop-color:%23ffeb3b;stop-opacity:1' /%3Q%3Cstop offset='100%25' style='stop-color:%23fbc02d;stop-opacity:1' /%3Q%3C/linearGradient%3E%3CradialGradient id='tireG' cx='50%25' cy='50%25' r='50%25' fx='50%25' fy='50%25'%3Q%3Cstop offset='70%25' style='stop-color:%23111111;stop-opacity:1' /%3Q%3Cstop offset='100%25' style='stop-color:%23333333;stop-opacity:1' /%3Q%3C/radialGradient%3E%3ClinearGradient id='headG' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3Q%3Cstop offset='0%25' style='stop-color:%23ffffff;stop-opacity:1' /%3Q%3Cstop offset='100%25' style='stop-color:%23dddddd;stop-opacity:1' /%3Q%3C/linearGradient%3E%3ClinearGradient id='pinkBoxG' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3Q%3Cstop offset='0%25' style='stop-color:%23ff4081;stop-opacity:1' /%3Q%3Cstop offset='100%25' style='stop-color:%23e91e63;stop-opacity:1' /%3Q%3C/linearGradient%3E%3C/defs%3E%3C!-- Realistic Shadow --%3E%3Cellipse cx='250' cy='360' rx='180' ry='25' fill='rgba(0,0,0,0.4)' /%3Q%3C!-- Scooter Body --%3E%3Cpath d='M100,180 C100,100 200,80 250,150 L350,150 C400,150 400,200 350,230 L150,250 L100,180 Z' fill='url(%23bodyG1)' stroke='%23d4af37' stroke-width='2'/%3Q%3Cpath d='M130,170 C130,120 180,110 210,150' fill='none' stroke='%23fbc02d' stroke-width='5' stroke-linecap='round' /%3Q%3C!-- Rear Fender --%3E%3Cpath d='M70,230 C70,180 130,170 160,200' fill='%23fbc02d' stroke='%23d4af37' stroke-width='2' /%3Q%3C!-- Wheels --%3E%3Ccircle cx='115' cy='310' r='55' fill='url(%23tireG)' stroke='%23000000' stroke-width='3' /%3Q%3Ccircle cx='115' cy='310' r='30' fill='%23aaaaaa' stroke='%23666666' stroke-width='2' /%3Q%3Ccircle cx='360' cy='310' r='55' fill='url(%23tireG)' stroke='%23000000' stroke-width='3' /%3Q%3Ccircle cx='360' cy='310' r='30' fill='%23aaaaaa' stroke='%23666666' stroke-width='2' /%3Q%3C!-- Handlebars & Headlight --%3E%3Cpath d='M250,150 L270,80 L320,80 C340,80 340,100 320,100 L280,100' fill='none' stroke='%23555555' stroke-width='8' stroke-linecap='round' /%3Q%3Ccircle cx='270' cy='85' r='18' fill='url(%23headG)' stroke='%23aaaaaa' stroke-width='1.5' /%3Q%3Crect x='252' y='67' width='36' height='10' rx='5' fill='%23FFD740' /%3Q%3C!-- The Detailed Pink Delivery Box --%3E%3Crect x='50' y='120' width='90' height='90' rx='8' fill='url(%23pinkBoxG)' stroke='%23ffffff' stroke-width='2' /%3Q%3Ctext x='95' y='155' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold' font-size='11' fill='%23ffffff'%3EOWNLY%3C/text%3E%3Ctext x='95' y='175' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold' font-size='12' fill='%23ffffff'%3EGAZETTE%3C/text%3E%3Cpath d='M70,140 H120 M70,185 H120' fill='none' stroke='%23FF80AB' stroke-width='1' /%3Q%3C!-- Detailed Seat --%3E%3Cpath d='M150,145 H250 C260,145 260,165 250,170 H160 C150,170 150,145 150,145 Z' fill='%23222222' /%3Q%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: relative;
+    }
+
+    .realistic-scooter::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 10%;
+      width: 80%;
+      height: 40px;
+      background: rgba(255, 51, 133, 0.2);
+      border-radius: 50%;
+      filter: blur(25px);
+      z-index: -1;
+    }
+
+    .prompt-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
     }
 
     .banner-prompt {
-      background: #FF3385;
+      background: linear-gradient(135deg, #FF3385 0%, #FF6A00 100%);
       color: #ffffff;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-weight: bold;
-      font-size: 18px;
-      box-shadow: 0 0 25px rgba(255, 51, 133, 0.9);
-      margin-bottom: 10px;
-      animation: floatBanner 1.5s ease-in-out infinite alternate;
-      border: 2px solid #ffffff;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 10px 40px rgba(255, 51, 133, 0.8), inset 0 2px 3px rgba(255,255,255,0.3);
+      border: 3px solid #ffffff;
       text-align: center;
+      white-space: nowrap;
+      animation: realismFloat 2s ease-in-out infinite alternate;
+      text-transform: uppercase;
     }
 
-    .scooter-img {
-      width: 380px;
-      height: auto;
-      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+    .sub-prompt {
+      color: #bbbbbb;
+      font-size: 14px;
+      letter-spacing: 1px;
+      font-weight: 400;
     }
 
-    /* Embedded Heyzine Frame */
+    /* Embedded Heyzine Frame - Updated to new PDF ID */
     #flipbook-frame {
       width: 100%;
       height: 100vh;
       border: none;
     }
 
-    /* Soft Pink Branding Patch (Covers Watermark) */
+    /* Soft Pink Gazette Logo Patch */
     .brand-overlay-patch {
       position: fixed;
       bottom: 50px;
@@ -109,14 +141,15 @@
       box-shadow: 0 6px 25px rgba(255, 51, 133, 0.9);
     }
 
-    @keyframes driveToCenter {
-      0% { left: -450px; }
-      100% { left: calc(50% - 190px); }
+    /* Modern Animations */
+    @keyframes realismDriveIn {
+      0% { transform: translateY(120vh) rotate(5deg); opacity: 0; }
+      100% { transform: translateY(0) rotate(0deg); opacity: 1; }
     }
 
-    @keyframes floatBanner {
-      0% { transform: translateY(0px) scale(1); }
-      100% { transform: translateY(-8px) scale(1.03); }
+    @keyframes realismFloat {
+      0% { transform: translateY(0px) scale(1); box-shadow: 0 10px 40px rgba(255, 51, 133, 0.8); }
+      100% { transform: translateY(-12px) scale(1.03); box-shadow: 0 15px 50px rgba(255, 51, 133, 0.9); }
     }
   </style>
 </head>
@@ -124,14 +157,18 @@
 
   <!-- Scooter Intro Overlay -->
   <div id="intro-overlay">
-    <div class="scooter-container" id="scooterButton">
-      <div class="banner-prompt">📰 Click to Read Ownly Newsletter!</div>
-      <img src="scooter-man.png" alt="Ownly Scooter Delivery" class="scooter-img">
+    <div class="scooter-stage" id="scooterButton">
+      <div class="realistic-scooter"></div>
+      
+      <div class="prompt-box">
+        <div class="banner-prompt">Enter Newsletter</div>
+        <div class="sub-prompt">Click to reveal the interactive issue</div>
+      </div>
     </div>
   </div>
 
-  <!-- Embedded Flipbook -->
-  <iframe id="flipbook-frame" src="https://heyzine.com/flip-book/77b2129074.html?page=1" allowfullscreen></iframe>
+  <!-- Embedded Flipbook with New PDF ID -->
+  <iframe id="flipbook-frame" src="https://heyzine.com/flip-book/f2183c8788.html?page=1" allowfullscreen></iframe>
 
   <!-- Pink Gazette Branding Cover -->
   <div class="brand-overlay-patch">
@@ -144,10 +181,9 @@
   </a>
 
   <script>
-    const scooterBtn = document.getElementById('scooterButton');
     const overlay = document.getElementById('intro-overlay');
 
-    scooterBtn.addEventListener('click', () => {
+    overlay.addEventListener('click', () => {
       overlay.style.opacity = '0';
       overlay.style.visibility = 'hidden';
     });
