@@ -14,7 +14,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
     }
 
-    /* Flipbook Container & Scaling Fix */
+    /* Fullscreen High-Zoom Flipbook Wrapper */
     .iframe-wrapper {
       position: absolute;
       top: 0;
@@ -28,10 +28,10 @@
     }
 
     #flipbook-frame {
-      width: 115vw;  /* Scale up width to crop outer black/pink margins */
-      height: 115vh; /* Scale up height to expand book size */
+      width: 140vw;  /* Stretch frame beyond viewport to remove empty padding */
+      height: 140vh; 
       border: none;
-      transform: scale(1.1); /* Zoom in for larger display */
+      transform: scale(1.45); /* High zoom to maximize book size */
       transform-origin: center center;
     }
 
@@ -173,7 +173,7 @@
     </div>
   </div>
 
-  <!-- Scaled Zoomed-In Flipbook Container -->
+  <!-- Max-Zoomed Flipbook Container -->
   <div class="iframe-wrapper">
     <iframe id="flipbook-frame" src="https://heyzine.com/flip-book/f2183c8788.html?page=1" allowfullscreen></iframe>
   </div>
