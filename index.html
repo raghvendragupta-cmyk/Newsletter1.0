@@ -28,10 +28,10 @@
     }
 
     #flipbook-frame {
-      width: 140vw;  /* Stretch frame beyond viewport to remove empty padding */
+      width: 140vw; 
       height: 140vh; 
       border: none;
-      transform: scale(1.45); /* High zoom to maximize book size */
+      transform: scale(1.45);
       transform-origin: center center;
     }
 
@@ -43,36 +43,109 @@
       background: #0c0c0c;
       z-index: 9999;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
+      padding: 40px 0;
       transition: opacity 0.8s ease, visibility 0.8s;
       cursor: pointer;
     }
 
-    .scooter-stage {
+    /* Delivery Stage Environment */
+    .delivery-stage {
+      width: 100%;
+      height: 60vh;
+      position: relative;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 50px;
-      animation: realismDriveIn 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      align-items: flex-end;
     }
 
-    .realistic-scooter {
-      width: 320px;
-      height: 250px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 400'%3Q%3Cdefs%3E%3ClinearGradient id='bodyG1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3Q%3Cstop offset='0%25' style='stop-color:%23ffeb3b;stop-opacity:1' /%3Q%3Cstop offset='100%25' style='stop-color:%23fbc02d;stop-opacity:1' /%3Q%3C/linearGradient%3E%3CradialGradient id='tireG' cx='50%25' cy='50%25' r='50%25' fx='50%25' fy='50%25'%3Q%3Cstop offset='70%25' style='stop-color:%23111111;stop-opacity:1' /%3Q%3Cstop offset='100%25' style='stop-color:%23333333;stop-opacity:1' /%3Q%3C/radialGradient%3E%3ClinearGradient id='headG' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3Q%3Cstop offset='0%25' style='stop-color:%23ffffff;stop-opacity:1' /%3Q%3Cstop offset='100%25' style='stop-color:%23dddddd;stop-opacity:1' /%3Q%3C/linearGradient%3E%3ClinearGradient id='pinkBoxG' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3Q%3Cstop offset='0%25' style='stop-color:%23ff4081;stop-opacity:1' /%3Q%3Cstop offset='100%25' style='stop-color:%23e91e63;stop-opacity:1' /%3Q%3C/linearGradient%3E%3C/defs%3E%3C!-- Realistic Shadow --%3E%3Cellipse cx='250' cy='360' rx='180' ry='25' fill='rgba(0,0,0,0.4)' /%3Q%3C!-- Scooter Body --%3E%3Cpath d='M100,180 C100,100 200,80 250,150 L350,150 C400,150 400,200 350,230 L150,250 L100,180 Z' fill='url(%23bodyG1)' stroke='%23d4af37' stroke-width='2'/%3Q%3Cpath d='M130,170 C130,120 180,110 210,150' fill='none' stroke='%23fbc02d' stroke-width='5' stroke-linecap='round' /%3Q%3C!-- Rear Fender --%3E%3Cpath d='M70,230 C70,180 130,170 160,200' fill='%23fbc02d' stroke='%23d4af37' stroke-width='2' /%3Q%3C!-- Wheels --%3E%3Ccircle cx='115' cy='310' r='55' fill='url(%23tireG)' stroke='%23000000' stroke-width='3' /%3Q%3Ccircle cx='115' cy='310' r='30' fill='%23aaaaaa' stroke='%23666666' stroke-width='2' /%3Q%3Ccircle cx='360' cy='310' r='55' fill='url(%23tireG)' stroke='%23000000' stroke-width='3' /%3Q%3Ccircle cx='360' cy='310' r='30' fill='%23aaaaaa' stroke='%23666666' stroke-width='2' /%3Q%3C!-- Handlebars & Headlight --%3E%3Cpath d='M250,150 L270,80 L320,80 C340,80 340,100 320,100 L280,100' fill='none' stroke='%23555555' stroke-width='8' stroke-linecap='round' /%3Q%3Ccircle cx='270' cy='85' r='18' fill='url(%23headG)' stroke='%23aaaaaa' stroke-width='1.5' /%3Q%3Crect x='252' y='67' width='36' height='10' rx='5' fill='%23FFD740' /%3Q%3C!-- The Detailed Pink Delivery Box --%3E%3Crect x='50' y='120' width='90' height='90' rx='8' fill='url(%23pinkBoxG)' stroke='%23ffffff' stroke-width='2' /%3Q%3Ctext x='95' y='155' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold' font-size='11' fill='%23ffffff'%3EOWNLY%3C/text%3E%3Ctext x='95' y='175' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold' font-size='12' fill='%23ffffff'%3EGAZETTE%3C/text%3E%3Cpath d='M70,140 H120 M70,185 H120' fill='none' stroke='%23FF80AB' stroke-width='1' /%3Q%3C!-- Detailed Seat --%3E%3Cpath d='M150,145 H250 C260,145 260,165 250,170 H160 C150,170 150,145 150,145 Z' fill='%23222222' /%3Q%3C/svg%3E");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
+    /* Buildings */
+    .building {
+      position: absolute;
+      bottom: 50px;
+      z-index: 2;
+    }
+
+    .restaurant {
+      left: 5%;
+    }
+
+    .home {
+      right: 5%;
+    }
+
+    /* Road Track */
+    .road {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 50px;
+      background: #1a1a1a;
+      border-top: 3px solid #ff3385;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .road-line {
+      width: 40px;
+      height: 6px;
+      background: #444;
+      border-radius: 3px;
+    }
+
+    /* Moving Scooter Assembly */
+    .scooter-delivery-unit {
+      position: absolute;
+      bottom: 35px;
+      left: -400px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      animation: deliveryRoute 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+
+    .waving-banner {
+      background: linear-gradient(135deg, #ff3385, #ff6a00);
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 2px solid #fff;
+      box-shadow: 0 4px 15px rgba(255, 51, 133, 0.6);
+      white-space: nowrap;
+      margin-right: -15px;
+      transform-origin: right center;
+      animation: bannerWave 1.2s ease-in-out infinite alternate;
       position: relative;
     }
 
+    .waving-banner::after {
+      content: '';
+      position: absolute;
+      right: -15px;
+      top: 50%;
+      width: 15px;
+      height: 2px;
+      background: #fff;
+    }
+
+    .scooter-svg {
+      width: 220px;
+      height: 160px;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+    }
+
+    /* Prompts */
     .prompt-box {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
+      z-index: 20;
     }
 
     .banner-prompt {
@@ -81,7 +154,7 @@
       padding: 16px 40px;
       border-radius: 50px;
       font-weight: 800;
-      font-size: 22px;
+      font-size: 20px;
       letter-spacing: 0.5px;
       box-shadow: 0 10px 40px rgba(255, 51, 133, 0.8), inset 0 2px 3px rgba(255,255,255,0.3);
       border: 3px solid #ffffff;
@@ -96,30 +169,6 @@
       font-size: 14px;
       letter-spacing: 1px;
       font-weight: 400;
-    }
-
-    /* Soft Pink Gazette Logo Patch */
-    .brand-overlay-patch {
-      position: fixed;
-      bottom: 50px;
-      left: 15px;
-      z-index: 998;
-      background-color: #FF3385;
-      color: #ffffff;
-      padding: 16px;
-      border-radius: 20px;
-      font-weight: 800;
-      font-size: 20px;
-      letter-spacing: 1px;
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
-      border: 3px solid #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      width: 280px;
-      height: 110px;
-      pointer-events: none;
     }
 
     /* Floating Feedback Button */
@@ -148,29 +197,93 @@
       box-shadow: 0 6px 25px rgba(255, 51, 133, 0.9);
     }
 
-    /* Animations */
-    @keyframes realismDriveIn {
-      0% { transform: translateY(120vh) rotate(5deg); opacity: 0; }
-      100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    /* Keyframe Animations */
+    @keyframes deliveryRoute {
+      0% { left: -350px; transform: scaleX(1); }
+      45% { left: calc(100% - 300px); transform: scaleX(1); }
+      50% { left: calc(100% - 300px); transform: scaleX(-1); }
+      95% { left: -350px; transform: scaleX(-1); }
+      100% { left: -350px; transform: scaleX(1); }
+    }
+
+    @keyframes bannerWave {
+      0% { transform: rotate(-3deg) translateY(0px); }
+      100% { transform: rotate(3deg) translateY(-4px); }
     }
 
     @keyframes realismFloat {
       0% { transform: translateY(0px) scale(1); box-shadow: 0 10px 40px rgba(255, 51, 133, 0.8); }
-      100% { transform: translateY(-12px) scale(1.03); box-shadow: 0 15px 50px rgba(255, 51, 133, 0.9); }
+      100% { transform: translateY(-10px) scale(1.03); box-shadow: 0 15px 50px rgba(255, 51, 133, 0.9); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Scooter Intro Overlay -->
+  <!-- Scooter Delivery Intro Overlay -->
   <div id="intro-overlay">
-    <div class="scooter-stage" id="scooterButton">
-      <div class="realistic-scooter"></div>
-      <div class="prompt-box">
-        <div class="banner-prompt">Enter Newsletter</div>
-        <div class="sub-prompt">Click to reveal the interactive issue</div>
+    
+    <div class="delivery-stage">
+      <!-- Restaurant Building -->
+      <svg class="building restaurant" width="120" height="140" viewBox="0 0 120 140">
+        <rect x="10" y="30" width="100" height="110" fill="#222" stroke="#ff3385" stroke-width="2" rx="5"/>
+        <path d="M5 30 L60 5 L115 30 Z" fill="#ff3385"/>
+        <rect x="35" y="80" width="50" height="60" fill="#111" stroke="#fff" stroke-width="1"/>
+        <text x="60" y="22" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">RESTAURANT</text>
+        <circle cx="60" cy="55" r="12" fill="#ffeb3b"/>
+        <text x="60" y="59" text-anchor="middle" fill="#000" font-size="12">🍔</text>
+      </svg>
+
+      <!-- Customer Home Building -->
+      <svg class="building home" width="110" height="130" viewBox="0 0 110 130">
+        <path d="M10 50 L55 10 L100 50 Z" fill="#ff6a00"/>
+        <rect x="15" y="50" width="80" height="80" fill="#222" stroke="#ff6a00" stroke-width="2"/>
+        <rect x="42" y="85" width="26" height="45" fill="#444"/>
+        <rect x="25" y="65" width="20" height="20" fill="#ffeb3b" opacity="0.8"/>
+        <rect x="65" y="65" width="20" height="20" fill="#ffeb3b" opacity="0.8"/>
+        <text x="55" y="125" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">HOME</text>
+      </svg>
+
+      <!-- Moving Delivery Unit -->
+      <div class="scooter-delivery-unit">
+        <div class="waving-banner">OWNLY NEWSLETTER</div>
+        <svg class="scooter-svg" viewBox="0 0 300 200">
+          <ellipse cx="150" cy="175" rx="90" ry="10" fill="rgba(0,0,0,0.4)"/>
+          <circle cx="80" cy="150" r="25" fill="#111" stroke="#444" stroke-width="6"/>
+          <circle cx="80" cy="150" r="10" fill="#888"/>
+          <circle cx="220" cy="150" r="25" fill="#111" stroke="#444" stroke-width="6"/>
+          <circle cx="220" cy="150" r="10" fill="#888"/>
+          <path d="M70 145 C70 110 120 100 160 120 L210 120 C230 120 235 145 220 150 L100 155 Z" fill="#ffeb3b" stroke="#fbc02d" stroke-width="2"/>
+          <path d="M90 110 L110 70 L150 70" fill="none" stroke="#333" stroke-width="6" stroke-linecap="round"/>
+          <path d="M120 100 L180 100 L180 115 L120 115 Z" fill="#222"/>
+          <rect x="35" y="70" width="55" height="55" rx="6" fill="#ff3385" stroke="#fff" stroke-width="2"/>
+          <text x="62" y="102" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold" font-size="10">OWNLY</text>
+          <path d="M150 70 C150 50 165 40 170 40 C180 40 185 55 185 70 L150 95 Z" fill="#ff3385"/>
+          <circle cx="175" cy="28" r="14" fill="#ff3385"/>
+          <circle cx="175" cy="28" r="12" fill="#333"/>
+          <path d="M175 28 L187 28" stroke="#ffeb3b" stroke-width="3"/>
+          <circle cx="178" cy="28" r="3" fill="#ffcc80"/>
+          <path d="M150 50 L125 60" stroke="#ff3385" stroke-width="8" stroke-linecap="round"/>
+          <path d="M125 60 L110 68" stroke="#ffcc80" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="215" cy="85" r="10" fill="#fff" stroke="#ffeb3b" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <!-- Road Base -->
+      <div class="road">
+        <div class="road-line"></div>
+        <div class="road-line"></div>
+        <div class="road-line"></div>
+        <div class="road-line"></div>
+        <div class="road-line"></div>
       </div>
     </div>
+
+    <!-- Action Button Prompt -->
+    <div class="prompt-box">
+      <div class="banner-prompt">Enter Newsletter</div>
+      <div class="sub-prompt">Click anywhere to reveal the interactive edition</div>
+    </div>
+
   </div>
 
   <!-- Max-Zoomed Flipbook Container -->
@@ -178,12 +291,7 @@
     <iframe id="flipbook-frame" src="https://heyzine.com/flip-book/f2183c8788.html?page=1" allowfullscreen></iframe>
   </div>
 
-  <!-- Pink Gazette Branding Cover -->
-  <div class="brand-overlay-patch">
-    <span>📰</span> GAZETTE
-  </div>
-
-  <!-- Feedback Floating Button -->
+  <!-- Floating Feedback Button -->
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSd79x7zS1NlU-5eyI_v21SdrySaUCoaSSpfINgQ_tJCxJC9Bw/viewform?usp=header" target="_blank" class="feedback-btn">
     💬 Give Feedback
   </a>
